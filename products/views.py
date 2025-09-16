@@ -5,8 +5,10 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView
 )
 from rest_framework.response import Response
+from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import AllowAny, IsAdminUser
 from products.models import Product, Category
+from products.filters import ProductFilter
 from products.serializers import ProductSerializer, CategorySerializer
 
 # Product Views
@@ -34,6 +36,8 @@ class ProductListView(ListAPIView):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filterset_class = ProductFilter
+    ordering_fields = ['price']
     permission_classes = [AllowAny]
 
 class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
