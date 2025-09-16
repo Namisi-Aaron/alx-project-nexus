@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from graphene_django.views import GraphQLView
 from users.urls import urlpatterns as user_urls
+from products.urls import urlpatterns as product_urls
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
@@ -43,3 +44,4 @@ urlpatterns = [
 ]
 
 urlpatterns += user_urls
+urlpatterns += product_urls
