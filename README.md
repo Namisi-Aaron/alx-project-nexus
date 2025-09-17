@@ -33,8 +33,8 @@ This case study focuses on developing a robust backend system to support an e-co
 
 ### 2. API Features
 
-- Filtering and Sorting: Allow users to filter products by category and sort by price.
-- Pagination: Implement paginated responses for large product datasets.
+- *Filtering and Sorting:* Allow users to filter products by category and sort by price.
+- *Pagination:* Implement paginated responses for large product datasets.
 
 ### 3. API Documentation
 
