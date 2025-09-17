@@ -75,3 +75,55 @@ docs: add API usage instructions in Swagger
 **4. Version Control**
  - Frequent and descriptive Git commit messages.
  - Well-organized repository structure.
+
+---
+## Running the application
+
+## Prerequisites
+
+Ensure you have the following installed:
+
+- [Python 3.10+](https://www.python.org/downloads/)
+- [pip](https://pip.pypa.io/en/stable/installation/)
+- [Git](https://git-scm.com/) (for cloning the project)
+
+## Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Namisi-Aaron/alx-project-nexus.git
+cd alx-project-nexus
+```
+
+### 2. Create and activate virtual environment
+```bash
+# On Windows
+python -m venv venv
+venv\Scripts\activate
+
+# On Linux/Mac
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependancies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Apply database migrations
+```bash
+python manage.py migrate
+```
+
+### 5. Create a Superuser (Admin)
+```bash
+python manage.py createsuperuser
+```
+
+### 6. Run the development server
+```bash
+python manage.py runserver
+```
+
+The app's API documentation (swagger) will be available at: http://127.0.0.1:8000/
