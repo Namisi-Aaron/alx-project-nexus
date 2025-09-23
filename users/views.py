@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from users.permissions import IsSuperUserOrNotAuthenticated, IsAdminOrSelf
 from users.models import CustomUser
+from users.filters import UserFilter
 from users.serializers import (
     CustomUserSerializer,
     CustomUserRegisterSerializer
@@ -37,6 +38,8 @@ class UserListView(generics.ListAPIView):
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    filterset_class = UserFilter
+    ordering_fields = ['username']
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):

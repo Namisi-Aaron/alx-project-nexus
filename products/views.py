@@ -5,10 +5,9 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView
 )
 from rest_framework.response import Response
-from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import AllowAny, IsAdminUser
 from products.models import Product, Category
-from products.filters import ProductFilter
+from products.filters import ProductFilter, CategoryFilter
 from products.serializers import ProductSerializer, CategorySerializer
 
 # Product Views
@@ -37,7 +36,7 @@ class ProductListView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filterset_class = ProductFilter
-    ordering_fields = ['price']
+    ordering_fields = ['name']
     permission_classes = [AllowAny]
 
 class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
@@ -64,6 +63,7 @@ class CategoryCreateView(CreateAPIView):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
     permission_classes = [IsAdminUser]
 
     def create(self, request, *args, **kwargs):
@@ -82,6 +82,8 @@ class CategoryListView(ListAPIView):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filterset_class = CategoryFilter
+    ordering_fields = ['name']
     permission_classes = [AllowAny]
 
 class CategoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
