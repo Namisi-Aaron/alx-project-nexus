@@ -29,7 +29,11 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ["https://alx-project-nexus-gckp.onrender.com/"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "alx-project-nexus-gckp.onrender.com",
+]
 
 
 # Application definition
