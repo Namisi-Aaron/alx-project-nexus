@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from graphene_django.views import GraphQLView
 from users.urls import urlpatterns as user_urls
 from products.urls import urlpatterns as product_urls
 from drf_yasg import openapi
@@ -39,7 +38,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('graphql/', GraphQLView.as_view(graphiql=True)),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(user_urls)),
     path('api/', include(product_urls)),

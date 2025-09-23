@@ -6,6 +6,9 @@ from products.models import Product, Category
 
 
 class Command(BaseCommand):
+    """
+    Command to seed the database with initial data (users, categories, products).
+    """
     help = "Seed the database with initial data (users, categories, products)."
 
     def handle(self, *args, **kwargs):
@@ -64,7 +67,7 @@ class Command(BaseCommand):
             ("Gloves", "Comfortable glove for protecting hands", "Beauty & Health"),
             ("Shower Head", "Adjustable shower head with built-in LED light", "Home & Kitchen"),
             ("Blender Head", "Adjustable blender head with built-in LED light", "Home & Kitchen"),
-            ("Shampoo", "Non-greasy shampoo", "Beauty & Health"),
+            ("Shampoo", "Non-greasy shampoo", "Beauty & Health")
         ]
 
         for name, desc, cat_name in product_data:
