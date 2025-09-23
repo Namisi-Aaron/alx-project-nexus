@@ -7,9 +7,10 @@ from products.models import Product, Category
 
 class Command(BaseCommand):
     """
-    Command to seed the database with initial data (users, categories, products).
+    Command to seed the database with initial data
+    for users, categories, and products.
     """
-    help = "Seed the database with initial data (users, categories, products)."
+    help = "Seeds the database with initial data."
 
     def handle(self, *args, **kwargs):
 
@@ -34,7 +35,9 @@ class Command(BaseCommand):
                     password="password123",
                     role="user",
                 )
-                self.stdout.write(self.style.SUCCESS(f"Created user: {username}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Created user: {username}")
+                )
 
         # --- Create Categories ---
         category_names = [
@@ -45,28 +48,70 @@ class Command(BaseCommand):
         for name in category_names:
             category, created = Category.objects.get_or_create(name=name)
             if created:
-                self.stdout.write(self.style.SUCCESS(f"Created category: {name}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Created category: {name}")
+                )
             categories.append(category)
 
         # --- Create Products ---
         product_data = [
-            ("Smartphone", "Latest Android smartphone with 6.5-inch display", "Electronics"),
-            ("Laptop", "High performance laptop for work and gaming", "Electronics"),
+            (
+                "Smartphone",
+                "Latest Android smartphone with 6.5-inch display",
+                "Electronics"
+            ),
+            (
+                "Laptop",
+                "High performance laptop for work and gaming",
+                "Electronics"
+            ),
             ("T-shirt", "Comfortable cotton t-shirt", "Clothing"),
             ("Novel", "Bestselling fiction novel", "Books"),
             ("Blender", "Multi-speed kitchen blender", "Home & Kitchen"),
             ("Football", "Standard size 5 football", "Sports"),
-            ("Headphones", "Wireless noise-cancelling headphones", "Electronics"),
+            (
+                "Headphones",
+                "Wireless noise-cancelling headphones",
+                "Electronics"
+            ),
             ("Sneakers", "Stylish running sneakers", "Clothing"),
             ("Cookbook", "Recipes from around the world", "Books"),
             ("Yoga Mat", "Non-slip yoga mat for fitness", "Sports"),
-            ("Garden Tool", "Garden hose with adjustable flow rate", "Home & Kitchen"),
-            ("Toothbrush", "Toothbrush with brush head and gentle brushing", "Beauty & Health"),
-            ("Fitness Tracker", "Digital fitness tracker for tracking workouts", "Health & Fitness"),
-            ("Weight Watcher", "Smart scale for tracking weight and calories", "Health & Fitness"),
-            ("Gloves", "Comfortable glove for protecting hands", "Beauty & Health"),
-            ("Shower Head", "Adjustable shower head with built-in LED light", "Home & Kitchen"),
-            ("Blender Head", "Adjustable blender head with built-in LED light", "Home & Kitchen"),
+            (
+                "Garden Tool",
+                "Garden hose with adjustable flow rate",
+                "Home & Kitchen"
+            ),
+            (
+                "Toothbrush",
+                "Toothbrush with brush head and gentle brushing",
+                "Beauty & Health"
+            ),
+            (
+                "Fitness Tracker",
+                "Digital fitness tracker for tracking workouts",
+                "Health & Fitness"
+            ),
+            (
+                "Weight Watcher",
+                "Smart scale for tracking weight and calories",
+                "Health & Fitness"
+            ),
+            (
+                "Gloves",
+                "Comfortable glove for protecting hands",
+                "Beauty & Health"
+            ),
+            (
+                "Shower Head",
+                "Adjustable shower head with built-in LED light",
+                "Home & Kitchen"
+            ),
+            (
+                "Blender Head",
+                "Adjustable blender head with built-in LED light",
+                "Home & Kitchen"
+            ),
             ("Shampoo", "Non-greasy shampoo", "Beauty & Health")
         ]
 
@@ -80,6 +125,8 @@ class Command(BaseCommand):
                 )
                 category = Category.objects.get(name=cat_name)
                 product.categories.add(category)
-                self.stdout.write(self.style.SUCCESS(f"Created product: {name}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Created product: {name}")
+                )
 
         self.stdout.write(self.style.SUCCESS("Seeding complete."))

@@ -1,12 +1,14 @@
 from users.models import CustomUser
 from rest_framework import serializers
 
+
 class CustomUserSerializer(serializers.ModelSerializer):
     """ Serializer for CustomUser model """
     class Meta:
         model = CustomUser
         fields = ['id', 'username', 'email', 'role', 'phone_number']
         read_only_fields = ['id', 'role']
+
 
 class CustomUserRegisterSerializer(serializers.ModelSerializer):
     """ Serializer for registering a new user """
@@ -21,6 +23,9 @@ class CustomUserRegisterSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'phone_number']
 
     def create(self, validated_data):
+        """
+        Creates a new user with the validated data.
+        """
         user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],

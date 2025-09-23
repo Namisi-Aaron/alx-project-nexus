@@ -1,9 +1,15 @@
 import django_filters
 from products.models import Product, Category
 
+
 class ProductFilter(django_filters.FilterSet):
+    """
+    Filters for Products.
+    """
     name = django_filters.CharFilter(lookup_expr='icontains')
-    categories = django_filters.ModelMultipleChoiceFilter(queryset=Category.objects.all())
+    categories = django_filters.ModelMultipleChoiceFilter(
+        queryset=Category.objects.all()
+    )
 
     class Meta:
         model = Product
@@ -12,6 +18,9 @@ class ProductFilter(django_filters.FilterSet):
 
 
 class CategoryFilter(django_filters.FilterSet):
+    """
+    Filters for Categories.
+    """
     name = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
