@@ -15,6 +15,7 @@ from products.serializers import ProductSerializer, CategorySerializer
 class ProductCreateView(CreateAPIView):
     """
     API view for creating a new product.
+
     Allows only admin users to create a new product.
 
     Returns:
@@ -40,6 +41,7 @@ class ProductCreateView(CreateAPIView):
 class ProductListView(ListAPIView):
     """
     API view for listing all products.
+
     Allows any user to retrieve a list of all products.
 
     Returns:
@@ -57,6 +59,7 @@ class ProductListView(ListAPIView):
 class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """
     API view for retrieving, updating, and deleting a product.
+
     Allows only admin users to update or delete products.
 
     Returns:
@@ -72,6 +75,7 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 class ProductDetailView(RetrieveAPIView):
     """
     API view for retrieving a product.
+
     Allows any user to retrieve a product.
 
     Returns:
@@ -88,6 +92,7 @@ class ProductDetailView(RetrieveAPIView):
 class CategoryCreateView(CreateAPIView):
     """
     API view for creating a new category.
+
     Allows only admin users to create categories.
 
     Returns:
@@ -114,6 +119,7 @@ class CategoryCreateView(CreateAPIView):
 class CategoryListView(ListAPIView):
     """
     API view for listing all categories.
+
     Allows access to all users.
 
     Returns:
@@ -131,6 +137,7 @@ class CategoryListView(ListAPIView):
 class CategoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """
     API view for retrieving, updating, and deleting a category.
+    
     Allows access to admin users only.
 
     Returns:

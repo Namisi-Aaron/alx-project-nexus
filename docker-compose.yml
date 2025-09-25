@@ -1,4 +1,21 @@
 services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"   # Broker
+      - "15672:15672" # Management UI
+
   db:
     image: postgres:15
     container_name: postgres
@@ -24,8 +41,13 @@ services:
     ports:
       - "8000:8000"
     depends_on:
+      - redis
+      - rabbitmq    
       - db
     environment:
+      REDIS_URL: ${REDIS_URL}
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -34,6 +56,37 @@ services:
       DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+    env_file:
+      - .env
+
+  celery_worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A e_commerce worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - rabbitmq
+      - django
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+
+  celery_beat:
+    build: .
+    container_name: celery_beat
+    command: celery -A e_commerce beat -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - rabbitmq
+      - django
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
 
 volumes:
   postgres_data:
+  redis_data:

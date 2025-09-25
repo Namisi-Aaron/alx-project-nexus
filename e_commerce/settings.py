@@ -47,11 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "rest_framework",
+    "django_celery_beat",
     "django_filters",
     "corsheaders",
     "drf_yasg",
     "users",
     "products",
+    
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -177,4 +179,9 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+}
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/api-auth/login/',
+    'LOGOUT_URL': '/api-auth/logout/',
 }
