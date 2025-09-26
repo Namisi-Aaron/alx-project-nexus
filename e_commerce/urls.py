@@ -19,6 +19,7 @@ from django.urls import path, include
 from users.urls import urlpatterns as user_urls
 from products.urls import urlpatterns as product_urls
 from orders.urls import urlpatterns as order_urls
+from payments.urls import urlpatterns as payment_urls
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
@@ -49,4 +50,5 @@ urlpatterns = [
     path('api/', include(user_urls)),
     path('api/', include(product_urls)),
     path('api/', include(order_urls)),
+    path('api/', include(payment_urls)),
 ]
