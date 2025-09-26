@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from users.urls import urlpatterns as user_urls
 from products.urls import urlpatterns as product_urls
+from orders.urls import urlpatterns as order_urls
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
@@ -47,4 +48,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(user_urls)),
     path('api/', include(product_urls)),
+    path('api/', include(order_urls)),
 ]
