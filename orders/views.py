@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from orders.models import Order, OrderItem
+from orders.tasks import send_order_creation_email
 from products.models import Product
 from orders.serializers import OrderSerializer, OrderItemSerializer
 from rest_framework import generics, permissions
@@ -25,6 +26,13 @@ class OrderListCreateView(generics.ListCreateAPIView):
         if user.is_superuser:
             return Order.objects.all()
         return Order.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        """
+        Create the user and send a notification email to the user.
+        """
+        order = serializer.save(user=self.request.user)
+        send_order_creation_email.delay(order.id, order.user.email, order.user.username)
 
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
