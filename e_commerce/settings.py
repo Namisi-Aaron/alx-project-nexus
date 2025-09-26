@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "users",
     "products",
     "orders.apps.OrdersConfig",
+    "payments",
     
 ]
 
@@ -194,3 +195,8 @@ SWAGGER_SETTINGS = {
     'LOGIN_URL': '/api-auth/login/',
     'LOGOUT_URL': '/api-auth/logout/',
 }
+
+CHAPA_SECRET_KEY=os.getenv("CHAPA_SECRET_KEY")
+CHAPA_PUBLIC_KEY=os.getenv("CHAPA_PUBLIC_KEY")
+CHAPA_API_BASE=os.getenv("CHAPA_API_BASE")
+CHAPA_CALLBACK_URL=os.getenv("CHAPA_CALLBACK_URL")
