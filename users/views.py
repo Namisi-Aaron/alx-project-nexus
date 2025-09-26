@@ -9,6 +9,7 @@ from users.serializers import (
     CustomUserSerializer,
     CustomUserRegisterSerializer
 )
+from users.tasks import send_user_creation_email
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,7 @@ class UserCreateView(generics.CreateAPIView):
             if serializer.is_valid(raise_exception=True):
                 user = serializer.save()
                 if user:
+                    send_user_creation_email.delay(user.email, user.username)
                     logger.info(
                         f"User {user.username} registered successfully."
                     )
