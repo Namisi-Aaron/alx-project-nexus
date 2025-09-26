@@ -18,9 +18,7 @@ class UserCreateView(generics.CreateAPIView):
     API view for creating a new user.
 
     Permission classes:
-        - AllowAny: Allows anyone to access the view.
-        - IsSuperUserOrNotAuthenticated: Only superusers
-            or unauthenticated users can access this view.
+        - Only superusers or unauthenticated users can access this view.
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserRegisterSerializer
@@ -53,7 +51,7 @@ class UserListView(generics.ListAPIView):
     API view for listing all users.
 
     Permission classes:
-        - IsAuthenticated: Only authenticated users can access this view.
+        - Only authenticated users can access this view.
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -79,9 +77,7 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     API view for retrieving, updating, and deleting a user.
 
     Permission classes:
-        - IsAuthenticated: Only authenticated users can access this view.
-        - IsAdminOrSelf: Only the authenticated user
-            or superusers can access this view.
+        - Allows only the authenticated user or superusers to access this view.
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer

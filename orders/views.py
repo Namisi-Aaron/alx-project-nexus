@@ -10,7 +10,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
     API view for listing all orders and creating orders for a specific user.
 
     Permission classes:
-        - IsAuthenticated: Only authenticated users can access this view.
+        - Only authenticated users can access this view.
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
