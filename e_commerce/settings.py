@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "users",
     "products",
     "orders.apps.OrdersConfig",
+    "payments",
     
 ]
 
