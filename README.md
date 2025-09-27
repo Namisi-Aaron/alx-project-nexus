@@ -60,9 +60,6 @@ Background tasks include:
 - *send_low_stock_alert* - alerts the admin user when stock levels reduce below the set threshold
 - *send_user_creation_email* - sends a notification when a new user is created successfully.
 
-
-## Implementation Process
-
 ## Submission Details
 
 - API Deployment: Host the API with documentation published (e.g., Swagger or Postman).
