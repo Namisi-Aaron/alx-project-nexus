@@ -7,7 +7,7 @@ The e-commerce backend simulates a real-world development environment, emphasizi
 - Well documented APIs for frontend integration.
 - Enhanced backend performance through query optimization and indexing.
 
-The video presentation for this project can be found 👉 [here](https://app.presentations.ai/view/5OHwWiE7sC)
+The **video presentation** for this project can be found 👉 [here](https://app.presentations.ai/view/5OHwWiE7sC)
 
 ## Overview
 
