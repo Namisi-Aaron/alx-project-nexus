@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.conf import settings
 from payments.models import Payment
 from payments.tasks import send_payment_completion_email
@@ -12,6 +13,7 @@ from payments.serializers import PaymentSerializer
 from payments.utils import initialize_chapa_payment
 
 
+@method_decorator(cache_page(60 * 10), name='get_queryset')
 class PaymentListCreateView(generics.ListCreateAPIView):
     """
     API view for listing all payments and creating payments for a specific user.

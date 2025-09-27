@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from orders.models import Order, OrderItem
 from orders.tasks import send_order_creation_email
 from products.models import Product
@@ -6,6 +8,7 @@ from orders.serializers import OrderSerializer, OrderItemSerializer
 from rest_framework import generics, permissions
 
 
+@method_decorator(cache_page(60 * 10), name='get_queryset')
 class OrderListCreateView(generics.ListCreateAPIView):
     """
     API view for listing all orders and creating orders for a specific user.

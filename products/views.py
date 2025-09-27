@@ -1,3 +1,5 @@
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
@@ -38,6 +40,7 @@ class ProductCreateView(CreateAPIView):
             return Response({"details": str(e)}, status=500)
 
 
+@method_decorator(cache_page(60 * 10), name='get_queryset')
 class ProductListView(ListAPIView):
     """
     API view for listing all products.
@@ -116,6 +119,7 @@ class CategoryCreateView(CreateAPIView):
             return Response({"details": str(e)}, status=500)
 
 
+@method_decorator(cache_page(60 * 10), name='get_queryset')
 class CategoryListView(ListAPIView):
     """
     API view for listing all categories.
