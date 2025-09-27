@@ -8,7 +8,7 @@ from orders.serializers import OrderSerializer, OrderItemSerializer
 from rest_framework import generics, permissions
 
 
-@method_decorator(cache_page(60 * 10), name='get_queryset')
+@method_decorator(cache_page(60 * 10), name="dispatch")
 class OrderListCreateView(generics.ListCreateAPIView):
     """
     API view for listing all orders and creating orders for a specific user.

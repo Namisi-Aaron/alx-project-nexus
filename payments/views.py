@@ -13,7 +13,7 @@ from payments.serializers import PaymentSerializer
 from payments.utils import initialize_chapa_payment
 
 
-@method_decorator(cache_page(60 * 10), name='get_queryset')
+@method_decorator(cache_page(60 * 10), name="dispatch")
 class PaymentListCreateView(generics.ListCreateAPIView):
     """
     API view for listing all payments and creating payments for a specific user.

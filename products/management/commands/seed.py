@@ -70,7 +70,7 @@ class Command(BaseCommand):
                     name=name,
                     description=desc,
                     price=Decimal(random.randint(10, 200)),
-                    quantity=random.randint(5, 50),
+                    stock=random.randint(5, 50),
                 )
                 category = Category.objects.get(name=cat_name)
                 product.categories.add(category)
