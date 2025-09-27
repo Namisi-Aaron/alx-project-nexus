@@ -16,10 +16,39 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from graphene_django.views import GraphQLView
+from users.urls import urlpatterns as user_urls
+from products.urls import urlpatterns as product_urls
+from orders.urls import urlpatterns as order_urls
+from payments.urls import urlpatterns as payment_urls
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="E-Commerce API",
+        default_version="v1",
+        description="""
+        API for managing products, categories, and user authentication.
+        """,
+        contact=openapi.Contact(email="aaronnamisi@gmail.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('graphql/', GraphQLView.as_view(graphiql=True)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path(
+        '',
+        schema_view.with_ui('swagger', cache_timeout=0),
+        name='schema-swagger-ui'
+    ),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(user_urls)),
+    path('api/', include(product_urls)),
+    path('api/', include(order_urls)),
+    path('api/', include(payment_urls)),
 ]
