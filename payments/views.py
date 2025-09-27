@@ -131,7 +131,7 @@ class ChapaWebhookView(views.APIView):
             send_payment_completion_email.delay(
                 payment_id=payment.id,
                 user_email=payment.user.email,
-                user_name=payment.user.get_full_name(),
+                user_name=payment.user.username,
                 status=payment.status
             )
             return Response({"status": "Payment verified and updated."}, status=200)

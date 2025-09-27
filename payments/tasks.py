@@ -21,13 +21,13 @@ def send_payment_completion_email(payment_id, user_email, user_name, status):
 
         if status == "completed":
             subject = "Payment Completed"
-            message = f"Hello {user_name},\n\nYour payment for order ID {order} has been completed."
+            message = f"Hello {user_name},\n\nYour payment for Order #{order.id} has been completed."
             message += f"\n\nOrder details:\nOrder ID: {order.id}\nTotal amount: {order.total_amount}\nShipping address: {order.shipping_address}"
             from_email = "noreply@app.com"
             recipient_list = [user_email]
         else:
             subject = "Payment Failed"
-            message = f"Hello {user_name},\n\nYour payment for order ID {order} has failed."
+            message = f"Hello {user_name},\n\nYour payment for Order #{order.id} has failed."
             message += f"\n\nOrder details:\nOrder ID: {order.id}\nTotal amount: {order.total_amount}\nShipping address: {order.shipping_address}"
             from_email = "noreply@app.com"
             recipient_list = [user_email]

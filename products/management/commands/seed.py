@@ -26,9 +26,10 @@ class Command(BaseCommand):
 
         # --- Create Categories ---
         category_names = [
-            "Electronics", "Health & Fitness"
+            "Electronics", "Health & Fitness",
             "Home & Kitchen", "Sports",
-            "Outdoor", "Beauty & Health"]
+            "Outdoor", "Beauty & Health",
+            "Clothing",]
         categories = []
         for name in category_names:
             category, created = Category.objects.get_or_create(name=name)
@@ -52,7 +53,15 @@ class Command(BaseCommand):
             ),
             ("Yoga Mat", "Non-slip yoga mat for fitness", "Sports"),
             ("Blender", "Multi-speed kitchen blender", "Home & Kitchen"),
-            ("Shampoo", "Non-greasy shampoo", "Beauty & Health")
+            ("Shampoo", "Non-greasy shampoo", "Beauty & Health"),
+            ("Headphones", "Noise-cancelling headphones for listening to music", "Electronics"),
+            ("T-Shirt", "Comfortable t-shirt with a long sleeve", "Clothing"),
+            ("Shoes", "Comfortable running shoes for both men and women", "Clothing"),
+            ("Watch", "Brand-new smartwatch with built-in fitness tracker", "Electronics"),
+            ("Toothbrush", "Durable toothbrush with a soft bristle", "Health & Fitness"),
+            ("Socks", "Comfortable sweatpants for both men and women", "Clothing"),
+            ("Shirt", "Comfortable casual shirt for both men and women", "Clothing"),
+            ("Pants", "Slim-fitting pants for both men and women", "Clothing"),
         ]
 
         for name, desc, cat_name in product_data:
