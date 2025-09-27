@@ -7,6 +7,8 @@ The e-commerce backend simulates a real-world development environment, emphasizi
 - Well documented APIs for frontend integration.
 - Enhanced backend performance through query optimization and indexing.
 
+The video presentation for this project can be found 👉 [here](https://app.presentations.ai/view/5OHwWiE7sC)
+
 ## Overview
 
 This case study focuses on developing a robust backend system to support an e-commerce product catalog. The backend will handle product data management, user authentication, and APIs for filtering, sorting, and pagination, simulating a real-world scenario for backend engineers.
@@ -42,17 +44,6 @@ This case study focuses on developing a robust backend system to support an e-co
 - Publish hosted API docs for easy frontend consumption.
 
 ## Implementation Process
-
-### Git Commit Workflow
-
-```bash
-feat: set up Django project with PostgreSQL
-feat: implement user authentication with JWT
-feat: add product APIs with filtering and pagination
-feat: integrate Swagger documentation for API endpoints
-perf: optimize database queries with indexing
-docs: add API usage instructions in Swagger
-```
 
 ## Submission Details
 
