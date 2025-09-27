@@ -5,7 +5,9 @@ from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.conf import settings
 from payments.models import Payment
+from payments.tasks import send_payment_completion_email
 from payments.serializers import PaymentSerializer
 from payments.utils import initialize_chapa_payment
 
@@ -117,8 +119,8 @@ class ChapaWebhookView(views.APIView):
         except Payment.DoesNotExist:
             return response.Response({"status": "Payment not found"}, status=404)
         
-        verify_url = f"https://api.chapa.co/v1/transaction/verify/{tx_ref}"
-        headers = {"Authorization": f"Bearer CHASECK_TEST-Dfgb6aAXMA5KrIcrwwH1sy4qUJhrAUtM"}
+        verify_url = f"{settings.CHAPA_API_BASE}/transaction/verify/{tx_ref}"
+        headers = {"Authorization": f"Bearer {settings.CHAPA_SECRET_KEY}"}
         response = requests.get(verify_url, headers=headers)
 
         verify_data = response.json()
@@ -126,8 +128,20 @@ class ChapaWebhookView(views.APIView):
         if verify_data.get("status") == "success" and verify_data.get("data", {}).get("status") == "success":
             payment.status = "completed"
             payment.save()
+            send_payment_completion_email.delay(
+                payment_id=payment.id,
+                user_email=payment.user.email,
+                user_name=payment.user.get_full_name(),
+                status=payment.status
+            )
             return Response({"status": "Payment verified and updated."}, status=200)
         
         payment.status = "failed"
         payment.save()
+        send_payment_completion_email.delay(
+            payment_id=payment.id,
+            user_email=payment.user.email,
+            user_name=payment.user.get_full_name(),
+            status=payment.status
+        )
         return Response({"status": "Payment failed."}, status=400)
