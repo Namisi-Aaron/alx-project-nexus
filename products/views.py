@@ -40,7 +40,7 @@ class ProductCreateView(CreateAPIView):
             return Response({"details": str(e)}, status=500)
 
 
-@method_decorator(cache_page(60 * 10), name="dispatch")
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class ProductListView(ListAPIView):
     """
     API view for listing all products.
@@ -119,7 +119,6 @@ class CategoryCreateView(CreateAPIView):
             return Response({"details": str(e)}, status=500)
 
 
-@method_decorator(cache_page(60 * 10), name="dispatch")
 class CategoryListView(ListAPIView):
     """
     API view for listing all categories.
