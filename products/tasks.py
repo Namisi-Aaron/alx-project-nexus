@@ -17,7 +17,7 @@ def send_low_stock_alert(product_id):
             message = f"The stock of {product.name} is running low.\n\n"
             message += f"{product.stock} units left."
             from_email = "noreply@app.com"
-            recipient_list = ["admin@example.com"]
+            recipient_list = ["ecommerce_admin@gmail.com"]
 
             send_mail(subject, message, from_email, recipient_list)
             return f"Low stock alert email sent for product ID {product_id}."

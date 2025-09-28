@@ -18,7 +18,7 @@ class Command(BaseCommand):
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser(
                 username="admin",
-                email="admin@gmail.com",
+                email="ecommerce_admin@gmail.com",
                 phone_number="0900000000",
                 password="admin123",
             )

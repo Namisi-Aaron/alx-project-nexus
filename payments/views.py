@@ -1,6 +1,6 @@
 import uuid
 import requests
-from rest_framework import generics, permissions, views
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from django.views.decorators.csrf import csrf_exempt
@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.conf import settings
 from payments.models import Payment
 from payments.tasks import send_payment_completion_email
-from payments.serializers import PaymentSerializer
+from payments.serializers import PaymentSerializer, ChapaWebhookSerializer
 from payments.utils import initialize_chapa_payment
 
 
@@ -96,34 +96,32 @@ class PaymentDetailView(generics.RetrieveUpdateDestroyAPIView):
         return Payment.objects.filter(user=self.request.user)
 
 
-class ChapaWebhookView(views.APIView):
+class ChapaWebhookView(generics.GenericAPIView):
     """
     API view for handling Chapa's webhook.
     """
     permission_classes = []
     authentication_classes = []
+    serializer_class = ChapaWebhookSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
-        data = request.data
-        tx_ref = data.get("tx_ref")
-
-        if not tx_ref:
-            return response.Response({"status": "tx_ref missing"}, status=400)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tx_ref = serializer.validated_data.get("transaction_id")
         
         try:
             payment = Payment.objects.get(transaction_id=tx_ref)
         except Payment.DoesNotExist:
-            return response.Response({"status": "Payment not found"}, status=404)
+            return Response({"status": "Payment not found"}, status=404)
         
         verify_url = f"{settings.CHAPA_API_BASE}/transaction/verify/{tx_ref}"
         headers = {"Authorization": f"Bearer {settings.CHAPA_SECRET_KEY}"}
-        response = requests.get(verify_url, headers=headers)
-
-        verify_data = response.json()
+        chapa_response = requests.get(verify_url, headers=headers)
+        verify_data = chapa_response.json()
 
         if verify_data.get("status") == "success" and verify_data.get("data", {}).get("status") == "success":
             payment.status = "completed"

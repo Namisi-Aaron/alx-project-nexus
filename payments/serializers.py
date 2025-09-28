@@ -45,3 +45,10 @@ class PaymentSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         validated_data["user"] = user
         return super().create(validated_data)
+
+
+class ChapaWebhookSerializer(serializers.Serializer):
+    """
+    Serializer for Chapa webhook data.
+    """
+    transaction_id = serializers.CharField(required=True)

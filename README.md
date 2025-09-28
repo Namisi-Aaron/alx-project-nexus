@@ -46,6 +46,9 @@ This case study focuses on developing a robust backend system to support an e-co
 ### 4. Permissions
 
 The API contains a series of enforced permissions that ensure security and Role Based Access. These include:
+
+- Only unauthenticated and admin users can create new users
+- All users (authenticated or otherwise) can see a list of all products and individual product details.
 - Only admins users can create, update and delete products and categories
 - Only admins users can retrieve and update details of other users other than themselves
 - Regular users can only create payments for orders that they are ssociated with
@@ -55,6 +58,7 @@ The API contains a series of enforced permissions that ensure security and Role 
 
 The API utilizes **Celery** as it's background worker. **Redis** serves as a storage backend for results, while **RabbitMQ** servers as a message broker.
 Background tasks include:
+
 - *send_order_creation_email* - sends a notification when a new order instance is created
 - *send_payment_completion_email* - sends a notification when a payment is completed (both failed or successful payments)
 - *send_low_stock_alert* - alerts the admin user when stock levels reduce below the set threshold
