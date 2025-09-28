@@ -60,6 +60,11 @@ Background tasks include:
 - *send_low_stock_alert* - alerts the admin user when stock levels reduce below the set threshold
 - *send_user_creation_email* - sends a notification when a new user is created successfully.
 
+### 6. Database Design
+
+The database design for this API backend can be represented using this ERD diagram.
+![Database ERD diagram](https://github.com/Namisi-Aaron/alx-project-nexus/blob/develop/images/Project%20Nexus%20ERD%20Diagram.png?raw=true)
+
 ## Submission Details
 
 - API Deployment: Host the API with documentation published (e.g., Swagger or Postman).
